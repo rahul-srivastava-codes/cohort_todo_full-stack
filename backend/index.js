@@ -32,9 +32,23 @@ app.put("/completed", function (req, res) {
       msg: "Invalid input",
     });
   }
+  todo.update(
+    {
+      _id: req.body.id,
+    },
+    {
+      completed: true,
+    }
+  );
+  res.json({
+    msg: "Todo updated successfully",
+  });
 });
 
-app.get("/todos", function (req, res) {});
+app.get("/todos", async function (req, res) {
+  const todos = await todo.find({});
+  console.log(todos);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
