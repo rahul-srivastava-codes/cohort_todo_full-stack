@@ -3,8 +3,10 @@ const app = express();
 const port = 3000;
 const { createTodo, updateTodo } = require("./types");
 const todo = require("./db");
+const cors = require("cors");
 
 app.use(express.json());
+app.use(cors());
 
 app.post("/todo", function (req, res) {
   const createPayload = req.body;
@@ -46,7 +48,7 @@ app.put("/completed", function (req, res) {
 });
 
 app.get("/todos", async function (req, res) {
-  const todos = await todo.find({});
+  const todos = await todo.findOne();
   console.log(todos);
 });
 
